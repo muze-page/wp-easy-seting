@@ -2,13 +2,16 @@
 
 /**
  * Plugin Name:       测试设置选项
+ * Plugin URI:        https://www.npc.ink
  * Description:       测试选项
+ * Author:            Npcink
+ * Author URI:        https://www.npc.ink
  * Requires at least: 6.1
  * Requires PHP:      7.0
  * Version:           0.1.0
- * Author:            The WordPress Contributors
- * License:           GPL-2.0-or-later
- * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
+ * Author:            Npcink
+ * License:           GPL-3.0-or-later
+ * License URI:       https://www.gnu.org/licenses/gpl-3.0.html
  * Text Domain:       accordion
  *
  * @package           create-block
@@ -72,12 +75,11 @@ function load_admin_script($hook)
     }
     // 获取 my_object_option 的值
     $default_value  = get_option($global_npcink_option);
-   
 
     $index_js = plugin_dir_url(__FILE__) . 'main.js';
-    wp_enqueue_script('666', $index_js, array(), '1.1', true);
+    wp_enqueue_script('option', $index_js, array(), '1.0', true);
 
-    wp_localize_script('666', 'myObjectOption', $default_value);
+    wp_localize_script('option', 'myObjectOption', $default_value);
 }
 add_action('admin_enqueue_scripts', 'load_admin_script');
 
