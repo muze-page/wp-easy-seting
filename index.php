@@ -34,10 +34,33 @@ function menu_displays()
 {
 
 ?>
-    <button id="get_click">获取值</button>
-    <button id="post_click">更新值</button>
-    <script src="https://unpkg.com/vue@3.3.4"></script>
-    <div id="app"></div>
+    <div class="wrap">
+
+
+
+
+        <h3>请填写选项</h3>
+        <h5>Jquery</h5>
+        <form action="" method="">
+            姓名： <input type="text" name="name"><br>
+            年龄： <input type="text" name="age"><br>
+            邮箱：<input type="text" name="email"><br>
+            <br />
+            <input type="submit" id="submit-btn" class="button button-primary" value="保存">
+        </form>
+        <br />
+
+
+        <hr />
+        <h5>Vue</h5>
+        <script src="https://unpkg.com/vue@3.3.4"></script>
+        <div id="app"></div>
+
+        <hr />
+        <button id="get_click" class="button button-primary">获取值</button>
+    </div><!--end-->
+
+
 <?
 }
 
