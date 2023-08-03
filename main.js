@@ -56,8 +56,21 @@ const App = {
         email: "",
       },
     });
-    //设为默认值
-    datas.myObject = myObjectOption;
+    //选项中有值才给默认值
+    if (Array.isArray(myObjectOption)) {
+    } else {
+      datas.myObject = myObjectOption;
+    }
+    
+
+    //打印当前存储的数据
+    const printData = () => {
+      console.log(myObjectOption);
+      console.log(datas.myObject);
+      const jsonString = JSON.stringify(datas.myObject);
+      console.log(jsonString);
+    };
+
     //发出请求
     const postData = () => {
       // 发送POST请求
@@ -79,13 +92,14 @@ const App = {
         },
       });
     };
-    return { datas, postData };
+    return { datas, postData, printData };
   },
   template: `
 姓名：<input type="text" v-model="datas.myObject.name"><br/>
 年龄：<input type="text" v-model="datas.myObject.age"><br/>
 邮箱：<input type="text" v-model="datas.myObject.email"><br/>
 <hr/><button class="button button-primary" @click="postData">保存</button>
+<hr/><button class="button button-primary" @click="printData">打印变量</button>
 `,
 };
 

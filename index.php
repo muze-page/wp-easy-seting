@@ -14,7 +14,7 @@
  * @package           create-block
  */
 
-$global_npcink_option = 'my_object_option_d';
+$global_npcink_option = 'my_object_option_n';
 
 //添加菜单
 
@@ -71,7 +71,8 @@ function load_admin_script($hook)
         return;
     }
     // 获取 my_object_option 的值
-    $default_value = get_option($global_npcink_option);
+    $default_value  = get_option($global_npcink_option);
+   
 
     $index_js = plugin_dir_url(__FILE__) . 'main.js';
     wp_enqueue_script('666', $index_js, array(), '1.1', true);
