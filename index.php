@@ -105,29 +105,13 @@ function save_object_option_callback()
         'message' => '设置选项已保存！',
         'object' => $object,
     );
-    wp_send_json_success($response);
+    //wp_send_json_success($response);
+    // 使用 wp_send_json 函数发送 JSON 响应，避免汉字转义
+    wp_send_json($response, 200, JSON_UNESCAPED_UNICODE);
 }
 
 
-/**
- * 判断指定选项是否存在，不存在则给默认值
- */
-//add_action('init', 'add_option_npcink');
-function add_option_npcink()
-{
-    global $global_npcink_option;
-    $value = get_option($global_npcink_option);
 
-    $my_option = array(
-        'name' => '测试中',
-        'age' => 30,
-        'email' => 'john@example.com'
-    );
-
-    if (isset($value->key)) {
-        update_option($global_npcink_option, $my_option);
-    }
-}
 
 
 
