@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Plugin Name:       测试设置选项
+ * Plugin Name:       简单设置选项
  * Plugin URI:        https://www.npc.ink
- * Description:       测试选项
+ * Description:       使用更加简单的方法实现设置选项，jS传值作选项默认值，触发回调保存选项值
  * Author:            Npcink
  * Author URI:        https://www.npc.ink
  * Requires at least: 6.1
@@ -35,13 +35,14 @@ function option_menu()
 }
 add_action('admin_menu', 'option_menu');
 
+//菜单回调
 function option_displays()
 {
 
 ?>
     <div class="wrap">
         <h3>请填写选项</h3>
-        <h5>Jquery</h5>
+        <h4>Jquery</h4>
         <form action="" method="">
             姓名： <input type="text" name="name"><br>
             年龄： <input type="text" name="age"><br>
@@ -49,16 +50,18 @@ function option_displays()
             <br />
             <input type="submit" id="submit-btn" class="button button-primary" value="保存">
         </form>
+        <br/>
+        <button id="get_click" class="button button-primary">打印变量</button>
         <br />
 
 
         <hr />
-        <h5>Vue</h5>
+        <h4>Vue</h4>
         <script src="https://unpkg.com/vue@3.3.4"></script>
         <div id="app"></div>
 
-        <hr />
-        <button id="get_click" class="button button-primary">获取值</button>
+       
+       
     </div><!--end-->
 
 
@@ -79,13 +82,14 @@ function load_admin_script($hook)
     $index_js = plugin_dir_url(__FILE__) . 'main.js';
     wp_enqueue_script('option', $index_js, array(), '1.0', true);
 
+    //传递选项值
     wp_localize_script('option', 'myObjectOption', $default_value);
 }
 add_action('admin_enqueue_scripts', 'load_admin_script');
 
 
 
-// 添加Ajax请求处理函数
+// 添加Ajax请求处理函数 - jS发出的请求中这里处理，保存到选项中
 add_action('wp_ajax_save_object_option', 'save_object_option_callback');
 
 function save_object_option_callback()
@@ -113,9 +117,15 @@ function save_object_option_callback()
 
 
 
+//添加设置按钮
+//设置按钮
+add_filter('plugin_action_links_' . plugin_basename(__FILE__), function ($links) {
+    $links[] = '<a href="' . get_admin_url(null, 'options-general.php?page=option_config') . '">' . __('设置', 'n') . '</a>';
+    return $links;
+});
 
 
-
+//调试用
 add_action('wp_head', 'shouTop');
 function shouTop()
 {

@@ -1,4 +1,6 @@
 //
+console.log(ajaxurl); //插件中直接有，主题需手动提供
+console.table(myObjectOption);
 
 //纯JS实现设置选项
 jQuery(document).ready(function ($) {
@@ -10,6 +12,7 @@ jQuery(document).ready(function ($) {
   $("#submit-btn").click(function (e) {
     e.preventDefault(); // 阻止表单默认提交行为
 
+    //准备变量
     const optionData = {
       name: "",
       age: "",
@@ -19,6 +22,8 @@ jQuery(document).ready(function ($) {
     optionData.name = $('input[name="name"]').val();
     optionData.age = $('input[name="age"]').val();
     optionData.email = $('input[name="email"]').val();
+
+    //准备传递
     jQuery.ajax({
       url: ajaxurl, // WordPress提供的全局变量，指向admin-ajax.php文件
       type: "POST",
@@ -28,7 +33,8 @@ jQuery(document).ready(function ($) {
       },
       success: function (response) {
         // 请求成功的回调函数
-        console.log("设置选项已保存！");
+
+        alert("设置选项已保存！ - JQ");
         console.log(optionData);
       },
       error: function (error) {
@@ -57,12 +63,9 @@ const App = {
       },
     });
     //选项中有值才给默认值
-    if (Array.isArray(myObjectOption)) {
-    } else {
+    if (!Array.isArray(myObjectOption)) {
       datas.myObject = myObjectOption;
     }
-    
-
     //打印当前存储的数据
     const printData = () => {
       console.log(myObjectOption);
@@ -83,7 +86,7 @@ const App = {
         },
         success: function (response) {
           // 请求成功的回调函数
-          console.log("设置选项已保存！");
+          alert("设置选项已保存！ - VUE");
           console.log(datas.myObject);
         },
         error: function (error) {
@@ -97,9 +100,9 @@ const App = {
   template: `
 姓名：<input type="text" v-model="datas.myObject.name"><br/>
 年龄：<input type="text" v-model="datas.myObject.age"><br/>
-邮箱：<input type="text" v-model="datas.myObject.email"><br/>
-<hr/><button class="button button-primary" @click="postData">保存</button>
-<hr/><button class="button button-primary" @click="printData">打印变量</button>
+邮箱：<input type="text" v-model="datas.myObject.email"><hr/>
+<button class="button button-primary" @click="postData">保存</button><hr/>
+<button class="button button-primary" @click="printData">打印变量</button>
 `,
 };
 
